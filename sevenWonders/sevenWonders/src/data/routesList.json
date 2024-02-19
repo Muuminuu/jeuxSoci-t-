@@ -1,0 +1,14 @@
+[
+    {
+        "uuid": "compteur_page",
+        "name": "CompteurPage",
+        "path": "/compteur",
+        "component": "CompteurPage.vue"
+    },
+    { 
+        "uuid": "documentation_page",
+        "name": "DocumentationPage",
+        "path": "/documentation",
+        "component": "DocumentationPage.vue"
+    }
+]
