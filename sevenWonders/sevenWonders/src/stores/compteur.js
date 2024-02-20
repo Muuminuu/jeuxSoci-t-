@@ -2,28 +2,21 @@ import { defineStore } from "pinia";
 
 export const useCompteurStore = defineStore('compteur', {
     state: () => ({
-            compteur: [],
-            id: 0
+            compteur: []
     }),
+    getters: {
+        getCompteur : (state) => state.compteur
+    },
     actions:{
         addCompteur(item) {
-            this.compteur.push({ 
-                item: item, 
-                id: this.id++,
-                joueur: joueur.value,
-                merveille: merveille.value,
-                argent: argent.value,
-                militaire: militaire.value,
-                culture: culture.value,
-                commerce: commerce.value,
-                science: science.value,
-                guilde: guilde.value
-            })
+            this.compteur.push(item)
+                
+            
         },
         deleteCompteur(itemId) {
             this.compteur = this.compteur.filter((object) => {
                 return object.id !== itemId
             })
-        }
+        },
     }
 });

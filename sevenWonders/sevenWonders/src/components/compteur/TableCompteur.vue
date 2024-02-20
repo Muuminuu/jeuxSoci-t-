@@ -1,51 +1,62 @@
 <script setup>
-import { useCompteurStore } from '@/stores';
 
-import { storeToRefs } from 'pinia'
+import { useCompteurStore } from '@/stores';
 
 const store = useCompteurStore()
 
-const { compteur } = storeToRefs(store)
+function calcArgent (argent){
+    return Math.floor(argent/3)
+}
 
+function calcPoints (compteur) {
+    const resultat = compteur.merveille + calcArgent(compteur.argent) + compteur.militaire + compteur.culture + compteur.commerce + compteur.scientifique + compteur.guilde
+    return resultat
+}
 
+console.log(store.getCompteur.filter((item) => typeof item === typeof 2))
+
+//console.log(compteur)
+//console.log(calcPoints(compteur))
+// const vainqueur = [{ 
+//    compteur.joueur : calcPoints(compteur),
+//    
+//}]
+// @vainqueur.
 
 </script>
 
 <template>
     <section>
-        <div v-for="compteur in compteur" :key="compteur.id" class="item">
-        <div class="content">
-            <span>nom: {{ compteur.joueur }}</span>
-
-            <!-- <span @click="deleteTodo(todo.id)">&#10060;</span> -->
-        </div>
-    </div>
-    </section>
-    <section>
         <p>Le vainqueur est {{  }} avec {{  }} points</p>
         <p>Suivi de {{  }} en deuxième position, puis {{  }} en troisème position</p>
         <table>
-            <thead>
-                <td>Resultats</td>
+
+            <thead class="table table-dark">
+
                 <!-- Reussir a importer le nom saisi dans le formulaire-->
-                <td>"test"</td>
-                <td>"test"</td>
-                <td>{{ compteur.name }}</td>
+                <th scope="col">Joueur</th>
+                <th scope="col">Merveille</th>
+                <th scope="col">Argent</th> 
+                <th scope="col">Militaire</th> 
+                <th scope="col">culture</th> 
+                <th scope="col">commerce</th> 
+                <th scope="col">scientifique</th> 
+                <th scope="col">guilde</th> 
+                <th scope="col">Resultats</th>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Merveilles</td>
-                    <!-- REussir à importer la valeur de merveille du formulaire-->
-                    <td>"3"</td>
+            <tbody class="table table-dark table-hover">
+                <tr v-for="compteur in store.getCompteur" :key="compteur.joueur" class="item">
+                    <td>{{ compteur.joueur }}</td>
                     <td>{{ compteur.merveille }}</td>
-                    <td>{{ compteur.argent }}</td>
+                    <td>{{ calcArgent(compteur.argent) }}</td>
                     <td>{{ compteur.militaire }}</td>
                     <td>{{ compteur.culture }}</td>
                     <td>{{ compteur.commerce }}</td>
                     <td>{{ compteur.scientifique }}</td>
                     <td>{{ compteur.guilde }}</td>
+                    <!-- <td>{{ resultat }}</td> -->
+                    <td>{{ calcPoints(compteur) }}</td>
                 </tr>
-                <tr>points totaux</tr>
             </tbody>
         </table>
     </section>

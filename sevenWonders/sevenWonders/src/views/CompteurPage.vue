@@ -5,7 +5,7 @@
 
 <template>
     <main>
-        <section  class="container d-flex row">
+        <section  class="container-fluid row">
             <table-compteur class="col-6" />
             <form-compteur class="col-6"/>
         </section>

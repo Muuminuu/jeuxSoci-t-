@@ -2,47 +2,44 @@
 import { ref } from 'vue'
 import { useCompteurStore } from '@/stores/compteur'
 
-const compteur = ref('')
-
-// const joueur = ref('');
-// const merveille = ref('');
-// const argent = ref('');
-// const militaire = ref('');
-// const culture = ref('');
-// const commerce = ref('');
-// const science = ref('');
-// const guilde = ref('');
+const compteur = ref({
+    joueur : '',
+    merveille : 0,
+    argent : 0,
+    militaire : 0,
+    culture : 0,
+    commerce : 0,
+    scientifique : 0,
+    guilde : 0
+})
 
 const store = useCompteurStore();
-
-// function addItemAndClear(item) {
-    // compteursStore.compteurs.push({
-    //     id: uuid(),
-    //     name: name.value,
-    //     merveille: merveille.value,
-    //     argent: argent.value,
-    //     militaire: militaire.value,
-    //     culture: culture.value,
-    //     commerce: commerce.value,
-    //     science: science.value,
-    //     guilde: guilde.value
-    // })
-
-    // name.value = "";
-    // merveille.value = 0;
-    // argent.value = 0;
-    // militaire.value = 0;
-    // culture.value = 0;
-    // commerce.value = 0;
-    // science.value = 0;
-    // guilde.value = 0;
 
 function addItemAndClear(item) {
     if (item.length === 0 ){
         return
     }
-    store.addCompteur(item)
-    compteur.value = ''
+    const temp = {
+    joueur : this.compteur.joueur,
+    merveille : this.compteur.merveille,
+    argent : this.compteur.argent,
+    militaire : this.compteur.militaire,
+    culture : this.compteur.culture,
+    commerce : this.compteur.commerce,
+    scientifique : this.compteur.scientifique,
+    guilde : this.compteur.guilde
+    }
+    console.log(temp)
+    store.addCompteur(temp)
+    this.compteur.joueur = ''
+    this.compteur.argent = 0
+    this.compteur.merveille = 0
+    this.compteur.militaire = 0
+    this.compteur.culture = 0
+    this.compteur.commerce = 0
+    this.compteur.scientifique = 0
+    this.compteur.guilde = 0
+    
 }
 
 </script>
@@ -60,7 +57,7 @@ function addItemAndClear(item) {
                         id="joueur"
                         name="joueur"
                         aria-describedby="joueur-help"
-                        v-model="joueur"
+                        v-model="compteur.joueur"
                         required
                     >
                 </div>
@@ -72,7 +69,7 @@ function addItemAndClear(item) {
                         id="merveille"
                         name="merveille"
                         aria-describedby="merveille-help"
-                        v-model="merveille"
+                        v-model="compteur.merveille"
                     >
                 </div>
                 <div class="mb-3">
@@ -83,7 +80,7 @@ function addItemAndClear(item) {
                         id="argent"
                         name="argent"
                         aria-describedby="argent-help"
-                        v-model="argent"
+                        v-model="compteur.argent"
                     >
                 </div>
                 <div class="mb-3">
@@ -94,7 +91,7 @@ function addItemAndClear(item) {
                         id="militaire"
                         name="militaire"
                         aria-describedby="militaire-help"
-                        v-model="militaire"
+                        v-model="compteur.militaire"
                     >
                 </div>
                 <div class="mb-3">
@@ -105,7 +102,7 @@ function addItemAndClear(item) {
                         id="culture"
                         name="culture"
                         aria-describedby="culture-help"
-                        v-model="culture"
+                        v-model="compteur.culture"
                     >
                 </div>
                 <div class="mb-3">
@@ -116,18 +113,18 @@ function addItemAndClear(item) {
                         id="commerce"
                         name="commerce"
                         aria-describedby="commerce-help"
-                        v-model="commerce"
+                        v-model="compteur.commerce"
                     >
                 </div>
                 <div class="mb-3">
-                    <label for="science" class="form-label">Science</label>
+                    <label for="scientifique" class="form-label">Science</label>
                     <input
                         type="number"
                         class="form-control"
-                        id="science"
-                        name="science"
-                        aria-describedby="science-help"
-                        v-model="science"
+                        id="scientifique"
+                        name="scientifique"
+                        aria-describedby="scientifique-help"
+                        v-model="compteur.scientifique"
                     >
                 </div>
                 <div class="mb-3">
@@ -138,7 +135,7 @@ function addItemAndClear(item) {
                         id="guilde"
                         name="guilde"
                         aria-describedby="guilde-help"
-                        v-model="guilde"
+                        v-model="compteur.guilde"
                     >
                 </div>
                 
