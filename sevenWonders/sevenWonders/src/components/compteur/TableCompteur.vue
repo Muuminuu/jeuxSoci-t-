@@ -1,11 +1,10 @@
 <script >
 import { useCompteurStore } from '@/stores';
 import { ref } from 'vue'
-const store = useCompteurStore()
-export default {
-    setup(props, context) {
-        const x = ref(0);
 
+export default {
+    setup() {
+        const store = useCompteurStore()
         function calcArgent(argent) {
             return Math.floor(argent/3)
         }
@@ -14,27 +13,32 @@ export default {
             const resultat = compteur.merveille + calcArgent(compteur.argent) + compteur.militaire + compteur.culture + compteur.commerce + compteur.scientifique + compteur.guilde
             return resultat
         }
+        let x = ref(false)
 
-
-        let compteurTri = store.getCompteur.sort((j1, j2) => calcPoints(j1) - calcPoints(j2))
-
-        function sortCompteur() {
-            x=1
+        let compteurTri = store.getCompteur
+        function sortMachin() {
+            compteurTri = store.getCompteur.sort((j1, j2) => calcPoints(j2) - calcPoints(j1))
+        }
+        return {
+            x,
+            compteurTri,
+            store,
+            calcPoints,
+            calcArgent,
+            sortMachin
         }
     }
 }
+//copie d'une varaible primaire : fait une copie sans interaction, autrement (array, object) ca bouge toujours les valeurs aux endroits.
 </script>
-
 <template>
     <section>
         <div 
-        v-if="x != 0">
-            <p>Le vainqueur est {{ }} avec {{  }} points</p>
-            <p>Suivi de {{  }} en deuxième position, puis {{  }} en troisème position</p>
+        v-if="x == true">
+            <p>Le vainqueur est {{ compteurTri[0].joueur }} avec {{ calcPoints(compteurTri[0]) }} points</p>
+            <p>Suivi de {{ compteurTri[1].joueur }} en deuxième position, puis {{ compteurTri[2].joueur }} en troisème position</p>
         </div>
-        <p>{{ compteurTri }}</p>
         <table>
-
             <thead class="table table-dark">
 
                 <!-- Reussir a importer le nom saisi dans le formulaire-->
@@ -63,8 +67,9 @@ export default {
                 </tr>
             </tbody>
         </table>
-        <button @click="sortCompteur()">Voir vainqueur</button>
+        <button @click="sortMachin(), x=true">Voir vainqueur</button>
     </section>
    
 </template>
-    
+   
+ 
