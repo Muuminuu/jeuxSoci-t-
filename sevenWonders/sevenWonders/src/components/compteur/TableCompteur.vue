@@ -1,34 +1,38 @@
-<script setup>
-
+<script >
 import { useCompteurStore } from '@/stores';
-
+import { ref } from 'vue'
 const store = useCompteurStore()
+export default {
+    setup(props, context) {
+        const x = ref(0);
 
-function calcArgent (argent){
-    return Math.floor(argent/3)
+        function calcArgent(argent) {
+            return Math.floor(argent/3)
+        }
+
+        function calcPoints (compteur) {
+            const resultat = compteur.merveille + calcArgent(compteur.argent) + compteur.militaire + compteur.culture + compteur.commerce + compteur.scientifique + compteur.guilde
+            return resultat
+        }
+
+
+        let compteurTri = store.getCompteur.sort((j1, j2) => calcPoints(j1) - calcPoints(j2))
+
+        function sortCompteur() {
+            x=1
+        }
+    }
 }
-
-function calcPoints (compteur) {
-    const resultat = compteur.merveille + calcArgent(compteur.argent) + compteur.militaire + compteur.culture + compteur.commerce + compteur.scientifique + compteur.guilde
-    return resultat
-}
-
-console.log(store.getCompteur.filter((item) => typeof item === typeof 2))
-
-//console.log(compteur)
-//console.log(calcPoints(compteur))
-// const vainqueur = [{ 
-//    compteur.joueur : calcPoints(compteur),
-//    
-//}]
-// @vainqueur.
-
 </script>
 
 <template>
     <section>
-        <p>Le vainqueur est {{  }} avec {{  }} points</p>
-        <p>Suivi de {{  }} en deuxième position, puis {{  }} en troisème position</p>
+        <div 
+        v-if="x != 0">
+            <p>Le vainqueur est {{ }} avec {{  }} points</p>
+            <p>Suivi de {{  }} en deuxième position, puis {{  }} en troisème position</p>
+        </div>
+        <p>{{ compteurTri }}</p>
         <table>
 
             <thead class="table table-dark">
@@ -59,6 +63,7 @@ console.log(store.getCompteur.filter((item) => typeof item === typeof 2))
                 </tr>
             </tbody>
         </table>
+        <button @click="sortCompteur()">Voir vainqueur</button>
     </section>
    
 </template>
